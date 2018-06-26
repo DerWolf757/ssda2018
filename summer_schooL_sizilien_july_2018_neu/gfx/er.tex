@@ -1,0 +1,62 @@
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[node distance=0.4cm, outer sep=1.5pt]
+	%\begin{scope}[anchor=south west, local bounding box=ERtree]
+	\node[ellipse, fill=black!20, draw](ERroot){};
+	\node[below=of ERroot](ER3){\includegraphics[width=0.8\columnwidth]{images/sift_er/sift_er_s3.png}};
+	\node[below=of ER3](ER2){\includegraphics[width=0.8\columnwidth]{images/sift_er/sift_er_s2.png}};
+	\node[below=of ER2](ER1){\includegraphics[width=0.8\columnwidth]{images/sift_er/sift_er_s1.png}};
+	\node(E3-1)[anchor=west, red, rounded corners=1pt, inner sep=12pt, text width=14pt,xshift=3pt, draw] at
+	(ER3.west){};
+	\node(E3-2)[anchor=west, red, rounded corners=1pt, inner sep=12pt, text width=137pt,xshift=45pt, draw] at
+	(ER3.west){};
+	%
+	\node(E2-1)[anchor=west, rounded corners=1pt, inner sep=10pt, text height=2pt, text width=16pt,xshift=3pt, draw] at
+	(ER2.west){};
+	\node(E2-2)[anchor=west, red, rounded corners=1pt, inner sep=10pt, text height=2pt, text width=50pt,xshift=45pt, draw] at
+	(ER2.west){};
+	\node(E2-3)[anchor=west, red, rounded corners=1pt, inner sep=10pt, text height=2pt, text width=15pt,xshift=117pt, draw] at
+	(ER2.west){};
+	\node(E2-4)[anchor=west, red, rounded corners=1pt, inner sep=10pt, text height=2pt, text width=34pt,xshift=152pt, draw] at
+	(ER2.west){};
+	%
+	\node(E1-1)[anchor=west, rounded corners=1pt, inner sep=10pt, text width=14pt,xshift=3pt, draw] at
+	(ER1.west){};
+	\node(E1-2)[anchor=west, red, rounded corners=1pt, text height=14pt, text width=4.1pt,xshift=44pt, draw] at
+	(ER1.west){};
+	\node(E1-3)[anchor=west, red, rounded corners=1pt, text height=14pt, text width=40pt,xshift=55pt, draw] at
+	(ER1.west){};
+	\node(E1-4)[anchor=west, red, rounded corners=1pt, text height=14pt, text width=4pt,xshift=102pt, draw] at
+	(ER1.west){};
+	\node(E1-5)[anchor=west, rounded corners=1pt, text height=14pt, text width=25pt,xshift=118pt, draw] at
+	(ER1.west){};
+	\node(E1-6)[anchor=west, rounded corners=1pt, text height=14pt, text width=46pt,xshift=151pt, draw] at
+	(ER1.west){};
+
+	\draw (ERroot.225) -- (E3-1.north);
+	\draw (ERroot.300) -- (E3-2);
+	\draw   (E3-1) -- (E2-1.north);
+	\draw   (E3-2) -- (E2-2.north);
+	\draw   (E3-2) -- (E2-3.north);
+	\draw   (E3-2) -- (E2-4.north);
+	\draw   (E2-1) -- (E1-1.north);
+	\draw   (E2-2) -- (E1-2.north);
+	\draw   (E2-2) -- (E1-3.north);
+	\draw   (E2-2) -- (E1-4.north);
+	\draw   (E2-3) -- (E1-5.north);
+	\draw   (E2-4) -- (E1-6.north);
+	%\end{scope} at (0,0);
+	%\begin{scope}[x={(ERtree.south east)},y={(ERtree.north west)}]
+	%	\draw[red] (0.2,0.4) rectangle (0.6,0.8);
+	%	\node[fill=red,draw] at (0,0){};
+	%	\node[draw] at (1,1){};
+	%   \end{scope}
+	 %\node[below=of ER1](ER0){\includegraphics[width=4cm]{images/sift_er/sift_er_s0.png}};
+\end{tikzpicture}
+\caption{Exemplary word hypotheses using extremal regions. Text detector
+scores for a single text line are thresholded at three different values. Connected components
+are organized in a tree structure. The tree root is denoted by a gray circle. Hypotheses
+are created for tree nodes with siblings, i.e., they merge into a single parent. These are
+indicated with red boxes.}
+\label{fig:er_wordhyp}
+\end{figure}
