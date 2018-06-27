@@ -1,0 +1,631 @@
+\begin{figure*}
+	\centering
+	\begin{tikzpicture}[
+	node distance = 1cm,
+	%nodes=draw,
+	auto,
+	scale=1.0,
+	transform shape,
+	triangle/.style = {regular polygon, regular polygon sides=3 },
+	node rotated/.style = {rotate=180},
+	border rotated/.style = {shape border rotate=180}
+	]
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	% 4. Word hypotheses
+	\node[ 
+	line width=0.2mm,
+	rounded corners=10pt, 
+	%rectangle, draw, 
+	minimum height=10cm, 
+	minimum width=0.95\textwidth]
+	at (0,0) 
+	(word_hypotheses)
+	{};
+	
+	\node[
+	line width=0.2mm,
+	rounded corners=2pt, 
+	%rectangle, draw, 
+	minimum height=3cm, 
+	minimum width=3cm]
+	at ([xshift=0em] word_hypotheses.north)
+	(cosine)
+	{
+		\includegraphics[width=3cm]{gfx/cosine_embedding_problem}
+	};
+	\node at ([xshift=-2.6em, yshift=-1.9em] word_hypotheses.north) {$\alpha$};
+	\node[
+	line width=0.2mm,
+	rounded corners=2pt, 
+	%rectangle, draw, 
+	minimum height=3cm, 
+	minimum width=3cm]
+	at ([xshift=10em] cosine.east)
+	{
+		\includegraphics[width=3cm]{images/captain_query}
+	};
+	%\node[anchor=south west,inner sep=0] (image) at (0,0) {\includegraphics[width=0.28\textwidth]{gfx/cosine_embedding_problem}};
+	
+	% % % % % LENET % % % % % % %
+	\node[ 
+	rounded corners=3pt,
+	%rectangle, draw,
+	minimum height=5cm, 
+	minimum width=4.5cm]
+	at ([yshift=0em, xshift=1.75cm] word_hypotheses.west)
+	(lenet)
+	{
+		%\Large{Architectures}
+		%\includegraphics[width=5cm]{images/sift_regions_top.png}
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=green]
+	(conv1)
+	at ([yshift=1cm, xshift=0.0cm] lenet.south)
+	{
+		\scriptsize{1 x CONV [28,28,20]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=orange]
+	(pool1)
+	at ([yshift=1em, xshift=0cm] conv1.north)
+	{
+		\scriptsize{POOL [2,2]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.5cm,
+	fill=green]
+	(conv2)
+	at ([yshift=1em, xshift=0cm] pool1.north)
+	{
+		\scriptsize{1xCONV [14,14,50]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.5cm,
+	fill=cyan!50]
+	(tpp)
+	at ([yshift=1em, xshift=0cm] conv2.north)
+	{
+		\scriptsize{TPP}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(fc1)
+	at ([yshift=1em, xshift=0cm] tpp.north)
+	{
+		\scriptsize{FC [500]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(fc2)
+	at ([yshift=1em, xshift=0cm] fc1.north)
+	{
+		\scriptsize{FC [500]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=yellow!50]
+	(phoc_tpp)
+	at ([yshift=1em, xshift=0cm] fc2.north)
+	{
+		\scriptsize{PHOC}	
+	};
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	
+	% % % % % TPP-PHOCNET % % % % % % % % % % % % % % % % % % % % % %
+	\node[ 
+	right = 0.0cm of lenet,
+	rounded corners=3pt,
+	%rectangle, draw,
+	minimum height=5cm, 
+	minimum width=4.5cm]
+	%at (lenet.west)
+	(tppnet)
+	{
+		%\Large{TPP-PHOCNet}
+		%\includegraphics[width=5cm]{images/sift_regions_top.png}
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=green]
+	(conv1)
+	at (tppnet.south)
+	{
+		\scriptsize{2 x CONV [3,3,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=orange]
+	(pool1)
+	at ([yshift=1em, xshift=0cm] conv1.north)
+	{
+		\scriptsize{POOL [2,2]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.5cm,
+	fill=green]
+	(conv2)
+	at ([yshift=1em, xshift=0cm] pool1.north)
+	{
+		\scriptsize{2xCONV [3,3,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.5cm,
+	fill=orange]
+	(pool2)
+	at ([yshift=1em, xshift=0cm] conv2.north)
+	{
+		\scriptsize{POOL [2,2]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=green]
+	(conv3)
+	at ([yshift=1em, xshift=0cm] pool2.north)
+	{
+		\scriptsize{6xCONV [3,3,256]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=green]
+	(conv4)
+	at ([yshift=1em, xshift=0cm] conv3.north)
+	{
+		\scriptsize{6xCONV [3,3,256]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=cyan!50]
+	(tpp)
+	at ([yshift=1em, xshift=0cm] conv4.north)
+	{
+		\scriptsize{TPP}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(fc1)
+	at ([yshift=1em, xshift=0cm] tpp.north)
+	{
+		\scriptsize{FC [4096]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(fc2)
+	at ([yshift=1em, xshift=0cm] fc1.north)
+	{
+		\scriptsize{FC [4096]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=yellow!50]
+	(phoc_tpp)
+	at ([yshift=1em, xshift=0cm] fc2.north)
+	{
+		\scriptsize{PHOC}	
+	};
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	
+	% % % % % RESNET % % % % % % %
+	\node[ 
+	right = 0.0cm of tppnet,
+	rounded corners=3pt,
+	%rectangle, draw,
+	minimum height=5cm, 
+	minimum width=4.5cm]
+	%at (lenet.west)
+	(resnet)
+	{
+		\Large{PHOCResNet}
+		%\includegraphics[width=5cm]{images/sift_regions_top.png}
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=green!50]
+	(conv1)
+	at ([yshift=0.0cm, xshift=0.0cm] resnet.south)
+	{
+		\tiny{1 x CONV [7,7,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=orange!50]
+	(pool1)
+	at ([yshift=1em, xshift=0cm] conv1.north)
+	{
+		\tiny{POOL [2,2]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=2.5cm, 
+	minimum width=3.5cm,
+	fill=green!10]
+	(resnetblock)
+	at ([yshift=4em, xshift=0cm] pool1.north)
+	{
+		%empty	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=1.5cm,
+	fill=green!50]
+	(block_conv1)
+	at ([yshift=1.85em, xshift=0cm] resnetblock.south)
+	{
+		\tiny{CONV [1,1,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=1.5cm,
+	fill=green!50]
+	(block_conv2)
+	at ([yshift=1.1em, xshift=0cm] block_conv1.north)
+	{
+		\tiny{CONV [3,3,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=1.5cm,
+	fill=green!50]
+	(block_conv3)
+	at ([yshift=1.1em, xshift=0cm] block_conv2.north)
+	{
+		\tiny{CONV [1,1,256]}	
+	};
+	
+	\node[
+	%rounded corners=3pt,
+	%ellipse, draw,
+	minimum height=-1.0cm, 
+	minimum width=-1.0cm]
+	(start)
+	at ([yshift=-0.75em, xshift=0cm] block_conv1.south)
+	{
+			\Huge{.}
+	};
+	
+	\node[
+	%rounded corners=3pt,
+	%ellipse, draw,
+	minimum height=-1.0cm, 
+	minimum width=-1.0cm]
+	(end)
+	at ([yshift=0.75em, xshift=0cm] block_conv3.north)
+	{
+			\Huge{.}
+	};
+	
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.5cm,
+	fill=cyan!50]
+	(tpp_resnet)
+	at ([yshift=1em, xshift=0cm] resnetblock.north)
+	{
+		\tiny{TPP}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(fc1)
+	at ([yshift=1em, xshift=0cm] tpp_resnet.north)
+	{
+		\tiny{FC [4096]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(fc2)
+	at ([yshift=1em, xshift=0cm] fc1.north)
+	{
+		\tiny{FC [4096]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=yellow!50]
+	(phoc_tpp)
+	at ([yshift=1em, xshift=0cm] fc2.north)
+	{
+		\tiny{PHOC}	
+	};
+	
+	
+	\draw[line width=0.25mm] (start) arc [x radius = 1.5cm, y radius = 1.05cm, start angle = -90,end angle = +90] (end);
+	
+	\draw[line width=0.27mm] (pool1) -- (block_conv1);
+	
+	\draw[line width=0.27mm] (block_conv1) -- (block_conv2);
+	
+	\draw[line width=0.27mm] (block_conv2) -- (block_conv3);
+	
+	\draw[line width=0.27mm] (block_conv3) -- (tpp_resnet);
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+
+	
+	% % % % % PHOCDenseNet % % % % % % %
+	\node[ 
+	right = 0.0cm of resnet,
+	rounded corners=3pt,
+	%rectangle, draw,
+	minimum height=5cm, 
+	minimum width=4.5cm]
+	%at (lenet.west)
+	(densenet)
+	{
+		%\Large{PHOCResNet}
+		%\includegraphics[width=5cm]{images/sift_regions_top.png}
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=green!50]
+	(dense_conv1)
+	at ([yshift=0.0cm, xshift=0.0cm] densenet.south)
+	{
+		\tiny{1 x CONV [7,7,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=4.2cm,
+	fill=orange!50]
+	(dense_pool1)
+	at ([yshift=0.75em, xshift=0cm] dense_conv1.north)
+	{
+		\tiny{POOL [2,2]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=2.5cm, 
+	minimum width=3.5cm,
+	fill=green!10]
+	(denseblock)
+	at ([yshift=4em, xshift=0cm] dense_pool1.north)
+	{
+		\tiny{1xCONV [14,14,50]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=1.5cm,
+	fill=green!50]
+	(denseblock_conv1)
+	at ([yshift=1.35em, xshift=0cm] denseblock.south)
+	{
+		\tiny{CONV [1,1,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=1.5cm,
+	fill=green!50]
+	(denseblock_conv2)
+	at ([yshift=1.5em, xshift=0cm] denseblock_conv1.north)
+	{
+		\tiny{CONV [3,3,64]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=1.5cm,
+	fill=green!50]
+	(denseblock_conv3)
+	at ([yshift=1.5em, xshift=0cm] denseblock_conv2.north)
+	{
+		\tiny{CONV [1,1,256]}	
+	};
+	
+	\node[
+	%rounded corners=3pt,
+	%ellipse, draw,
+	minimum height=-1.0cm, 
+	minimum width=-1.0cm]
+	(dense_start)
+	at ([yshift=-0.5em, xshift=0cm] denseblock_conv1.south)
+	{
+		\Huge{.}
+	};
+	
+	\node[
+	%rounded corners=3pt,
+	%ellipse, draw,
+	minimum height=-1.0cm, 
+	minimum width=-1.0cm]
+	(dense_node_1)
+	at ([yshift=0.5em, xshift=0cm] denseblock_conv1.north)
+	{
+		\Huge{.}
+	};
+	
+	\node[
+	%rounded corners=3pt,
+	%ellipse, draw,
+	minimum height=-1.0cm, 
+	minimum width=-1.0cm]
+	(dense_node_2)
+	at ([yshift=0.5em, xshift=0cm] denseblock_conv2.north)
+	{
+		\Huge{.}
+	};
+	
+	\node[
+	%rounded corners=3pt,
+	%ellipse, draw,
+	minimum height=-1.0cm, 
+	minimum width=-1.0cm]
+	(dense_end)
+	at ([yshift=0.6em, xshift=0cm] denseblock_conv3.north)
+	{
+		\Huge{.}
+	};
+	
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.5cm,
+	fill=cyan!50]
+	(tpp_densenet)
+	at ([yshift=1em, xshift=0cm] denseblock.north)
+	{
+		\tiny{TPP}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(dense_fc1)
+	at ([yshift=1em, xshift=0cm] tpp_densenet.north)
+	{
+		\tiny{FC [4096]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=magenta!50]
+	(dense_fc2)
+	at ([yshift=1em, xshift=0cm] dense_fc1.north)
+	{
+		\tiny{FC [4096]}	
+	};
+	\node[
+	rounded corners=3pt,
+	rectangle, draw,
+	minimum height=0.0cm, 
+	minimum width=3.0cm,
+	fill=yellow!50]
+	(dense_phoc_tpp)
+	at ([yshift=1em, xshift=0cm] dense_fc2.north)
+	{
+		\tiny{PHOC}	
+	};
+	
+	
+	\draw[line width=0.25mm] (dense_start) arc [x radius = 1.5cm, y radius = 0.375cm, start angle = -90,end angle = +90] (dense_node_1);
+	\draw[line width=0.25mm] (dense_node_1) arc [x radius = 1.5cm, y radius = 0.375cm, start angle = -90,end angle = +90] (dense_node_2);
+	\draw[line width=0.25mm] (dense_node_2) arc [x radius = 1.5cm, y radius = 0.375cm, start angle = -90,end angle = +90] (dense_end);
+	
+	\draw[line width=0.25mm] (dense_start) arc [x radius = 1.5cm, y radius = 0.75cm, start angle = -90,end angle = +90] (dense_node_2);
+	\draw[line width=0.25mm] (dense_node_1) arc [x radius = 1.5cm, y radius = 0.75cm, start angle = -90,end angle = +90] (dense_node_2);
+
+	\draw[line width=0.25mm] (dense_start) arc [x radius = 1.5cm, y radius = 1.11cm, start angle = -90,end angle = +90] (dense_node_2);
+		
+	\draw[line width=0.27mm] (dense_pool1) -- (denseblock_conv1);
+	
+	\draw[line width=0.27mm] (denseblock_conv1) -- (denseblock_conv2);
+	
+	\draw[line width=0.27mm] (denseblock_conv2) -- (denseblock_conv3);
+	
+	\draw[line width=0.27mm] (denseblock_conv3) -- (tpp_densenet);
+	
+	% % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % % %
+	
+	\node[ 
+	%line width=0.1mm,
+	rounded corners=3pt, 
+	rectangle, draw, 
+	minimum height=1cm, 
+	minimum width=1cm]
+	at ([xshift=0em, yshift=2em] word_hypotheses.south)
+	{
+		\includegraphics[width=6cm]{./images/captain.png}
+	};
+	
+	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+	
+	\end{tikzpicture}
+\end{figure*}

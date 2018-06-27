@@ -1,0 +1,140 @@
+\begin{figure*}
+  \centering
+  \begin{tikzpicture}
+    % GW    
+    \begin{axis}[name=plot1,
+  			   width=0.33\textwidth,
+  			   height=0.2\textheight,
+			   ymin=0, ymax=100,
+			   xmin=0, xmax=80000,
+			   ylabel={mAP [\%]},
+			   scaled ticks=false,
+			   xtick={0,2e4,4e4,6e4,8e4},
+			   xticklabels={\footnotesize{$0$},\footnotesize{$20\,000$},\footnotesize{$40\,000$},\footnotesize{$60\,000$},,},
+			   minor tick num=1,
+			   grid=both,
+			   grid style={black!10},]
+	  % BLL + PHOC
+	  \addplot[color=red, mark=none] table[x index=0 , y index=13, col sep=comma] {data/gw-cv4-almazan_tppnet_expids164-165-166-167.csv};
+	  % CL + PHOC
+	  \addplot[color=blue, mark=none] table[x index=0 , y index=13, col sep=comma] {data/gw-cv4-almazan_tppnet-cosine_expids250-251-252-253.csv};
+	  % CL + SPOC
+	  \addplot[color=black, mark=none] table[x index=0 , y index=13, col sep=comma] {data/gw-cv4-almazan_tppnet-cosine_expids265-266-267-268.csv};
+	  % CL + DCToW
+	  \addplot[color=green, mark=none] table[x index=0 , y index=13, col sep=comma] {data/gw-cv4-almazan_tppnet-cosine_expids420-421-425-426.csv};
+    \end{axis}
+    \node[above=0.25em of plot1] {GW};
+
+	% IAM-DB
+    \begin{axis}[name=plot2,
+			     at=(plot1.right of south east), anchor=left of south west,
+			     width = 0.33\textwidth,
+			     height=0.2\textheight,
+			     ymin=0, ymax=100,
+			     xmin=0, xmax=240000,			     
+			     xtick={0,80000,160000},
+			     xticklabels={\footnotesize{$0$},\footnotesize{$80\,000$},\footnotesize{$160\,000$}},
+			     scaled ticks=false,
+			     minor x tick num=7,
+			     minor y tick num=1,
+			     yticklabels={,,},
+			     grid=both,
+				 grid style={black!10},]
+	  % BLL + PHOC
+	  \addplot[color=red, mark=none] table[x index=0 , y index=1, col sep=comma] {data/iam_tppnet_expids262.csv};
+	  % CL + PHOC
+	  \addplot[color=blue, mark=none] table[x index=0 , y index=1, col sep=comma] {data/iam_tppnet-cosine_expids410.csv};
+	  % CL + SPOC
+	  \addplot[color=black, mark=none] table[x index=0 , y index=1, col sep=comma] {data/iam_tppnet-cosine_expids399.csv};
+	  % CL + DCToW
+	  \addplot[color=green, mark=none] table[x index=0 , y index=1, col sep=comma] {data/iam_tppnet-cosine_expids418.csv};
+    \end{axis}
+    \node[above=0.25em of plot2] {IAM-DB};
+
+    % Esp.
+	\begin{axis}[name=plot3,
+			     at=(plot2.right of south east), anchor=left of south west,
+			     width = 0.33\textwidth,
+			     height=0.2\textheight,
+				 ymin=0, ymax=100,
+				 xmin=0, xmax=80000,
+				 scaled ticks=false,
+				 xtick={0,2e4,4e4,6e4,8e4},
+				 yticklabels={,,},
+  			     xticklabels={\footnotesize{$0$},\footnotesize{$20\,000$},\footnotesize{$40\,000$},\footnotesize{$60\,000$},,},
+			     minor tick num=1,
+			     grid=both,
+				 grid style={black!10},]
+	  % BLL + PHOC
+	  \addplot[color=red, mark=none] table[x index=0 , y index=1, col sep=comma] {data/esp_tppnet_expids149.csv};
+	  % CL + PHOC
+	  \addplot[color=blue, mark=none] table[x index=0 , y index=1, col sep=comma] {data/esp_tppnet-cosine_expids411.csv};
+	  % CL + SPOC
+	  \addplot[color=black, mark=none] table[x index=0 , y index=1, col sep=comma] {data/esp_tppnet-cosine_expids408.csv};
+	  % CL + DCToW
+	  \addplot[color=green, mark=none] table[x index=0 , y index=1, col sep=comma] {data/esp_tppnet-cosine_expids419.csv};
+    \end{axis}
+    \node[above=0.25em of plot3] {Esposalles};
+
+    % Botany
+    \node[below=3em of plot1.south west] (node_botany) {};
+    \begin{axis}[name=plot4,
+    			 at={(node_botany.south)}, anchor=above north west,
+				 %at={(plot1.below south west)}, anchor=above north west,
+				 width = 0.33\textwidth,
+				 height=0.2\textheight,
+				 ymin=0, ymax=100,
+				 xmin=0, xmax=80000,
+				 scaled ticks=false,
+				 xtick={0,2e4,4e4,6e4,8e4},
+  			     xticklabels={\footnotesize{$0$},\footnotesize{$20\,000$},\footnotesize{$40\,000$},\footnotesize{$60\,000$},,},
+			     minor tick num=1,
+			     grid=both,
+				 grid style={black!10},]
+	  % BLL + PHOC
+	  \addplot[color=red, mark=none] table[x index=0 , y index=1, col sep=comma] {data/botany-Train_III_tppnet_expids162.csv};
+	  % CL + PHOC
+	  \addplot[color=blue, mark=none] table[x index=0 , y index=1, col sep=comma] {data/botany-Train_III_tppnet-cosine_expids412.csv};
+	  % CL + SPOC
+	  \addplot[color=black, mark=none] table[x index=0 , y index=1, col sep=comma] {data/botany-Train_III_tppnet-cosine_expids405.csv};
+	  % CL + DCToW
+	  \addplot[color=green, mark=none] table[x index=0 , y index=1, col sep=comma] {data/botany-Train_III_tppnet-cosine_expids417.csv};
+    \end{axis}
+    \node[above=0.25em of plot4] {Botany};
+    
+    
+    % Konzilsprotokolle
+    \begin{axis}[name=plot5,
+				 at=(plot4.right of south east), anchor=left of south west,
+				 width = 0.33\textwidth,
+				 height=0.2\textheight,
+			     ymin=0, ymax=100,
+			     xmin=0, xmax=80000,
+			     yticklabels={,,},
+			     xlabel=Number of Iterations,
+			     scaled ticks=false,
+				 xtick={0,2e4,4e4,6e4,8e4},
+  			     xticklabels={\footnotesize{$0$},\footnotesize{$20\,000$},\footnotesize{$40\,000$},\footnotesize{$60\,000$},,},
+			     minor tick num=1,
+			     grid=both,
+			     grid style={black!10},
+			     legend style={at={(2.06,1)}},
+			     legend cell align=left,]
+	  % Bin. Log. Loss + PHOC
+	  \addplot[color=red, mark=none] table[x index=0 , y index=1, col sep=comma] {data/konzilsprotokolle-Train_III_tppnet_expids215.csv};
+	  \addlegendentry{Bin. Log. Loss + PHOC};
+	  % CL + PHOC
+	  \addplot[color=blue, mark=none] table[x index=0 , y index=1, col sep=comma] {data/konzilsprotokolle-Train_III_tppnet-cosine_expids413.csv};
+	  \addlegendentry{Cosine Loss + PHOC};
+	  % CL + SPOC
+	  \addplot[color=black, mark=none] table[x index=0 , y index=1, col sep=comma] {data/konzilsprotokolle-Train_III_tppnet-cosine_expids406.csv};
+	  \addlegendentry{Cosine Loss + SPOC};
+	  % CL + DCToW
+	  \addplot[color=green, mark=none] table[x index=0 , y index=1, col sep=comma] {data/konzilsprotokolle-Train_III_tppnet-cosine_expids416.csv};
+	  \addlegendentry{Cosine Loss + DCToW};
+    \end{axis}
+    \node[above=0.25em of plot5] {Konzilsprotokolle};
+  \end{tikzpicture}
+  \caption{Evolution of mAP for the five QbE experiments over the course of training using the different loss functions and embeddings.}
+  \label{fig:map_curves}
+\end{figure*}
